@@ -16,6 +16,14 @@ body {
   min-height: 100vh; /* 补充全屏垂直居中，优化体验 */
   color: #2a2b2c;
   background-color: #ebedee;
+  padding: 10px 0; /* 手机端上下内边距，避免卡片贴边 */
+}
+/* 新增容器适配 */
+.container {
+  width: 100%;
+  max-width: 768px; /* 最大宽度与卡片一致 */
+  padding: 0 15px;
+  margin: 0 auto;
 }
 img {
   width: auto;
@@ -23,8 +31,9 @@ img {
 }
 .card {
   background-color: transparent;
-  width: 768px;
+  width: 100%; /* 改为100%，适配容器 */
   border-radius: 8px; /* 优化圆角，适配中文视觉 */
+  margin: 15px 0 !important; /* 垂直排列后增加卡片间距 */
 }
 .form-control {
   cursor: auto;
@@ -36,15 +45,15 @@ img {
   font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
   border-radius: 6px !important; /* 统一列表项圆角 */
 }
-/* 响应式适配 */
+/* 响应式适配（简化，因已改为垂直排列） */
 @media (max-width: 769px) {
   .card {
-    width: 80%;
+    width: 100%;
   }
 }
 @media (max-width: 420px) {
   .card {
-    width: 95%;
+    width: 100%;
   }
 }
 /* 暗黑模式适配（补充表单样式） */
