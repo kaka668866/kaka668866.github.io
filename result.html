@@ -3,41 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>短链跳转中</title>
+    <title>星云短链 | 跳转中</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="bg-decoration">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+    </div>
+
     <div class="container">
         <header class="panel-header">
             <div class="logo">
-                <i class="fas fa-link"></i>
-                <h1>卡卡短链</h1>
+                <i class="fas fa-bolt-lightning neon-icon"></i>
+                <h1>星云短链</h1>
             </div>
+            <div class="divider"></div>
         </header>
 
         <main class="form-card" style="text-align: center;">
-            <div style="margin-bottom: 24px;">
-                <i class="fas fa-arrow-right" style="font-size: 48px; color: #4299e1; margin-bottom: 16px;"></i>
-                <h2 style="color: #2c3e50; margin-bottom: 8px;">短链验证成功，即将跳转</h2>
-                <p style="color: #7f8c8d;">若未自动跳转，请点击下方链接</p>
+            <div class="jump-tip">
+                <i class="fas fa-arrow-right-long jump-icon" style="font-size: 64px; background: linear-gradient(90deg, #6366f1, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 24px; animation: jump-pulse 2s ease infinite alternate;"></i>
+                <h2 style="font-size: 28px; margin-bottom: 16px; color: #f8fafc;">短链验证成功 · 即将跳转</h2>
+                <p style="font-size: 16px; color: #94a3b8; margin-bottom: 32px;">倒计时 <span id="countdown" style="color: #06b6d4; font-weight: 700; font-size: 20px;">5</span> 秒 | 未自动跳转请点击下方链接</p>
+                <a href="{__FINAL_LINK__}" target="_blank" class="submit-btn" style="text-decoration: none; display: inline-block; width: 80%;">
+                    <i class="fas fa-external-link-alt btn-icon"></i>
+                    立即访问原链接
+                </a>
             </div>
-
-            <a href="{__FINAL_LINK__}" target="_blank" class="submit-btn" style="text-decoration: none; display: inline-block; width: 80%;">
-                <i class="fas fa-external-link-alt"></i> 立即访问
-            </a>
         </main>
 
         <footer class="panel-footer">
-            <p class="copyright">© 2026 卡卡短链 | 基于Cloudflare Worker开发</p>
+            <p class="copyright">© 2026 星云短链 | CYBER URL SHORTENER · 科技感短链工具</p>
         </footer>
     </div>
 
-    <!-- 自动跳转脚本（5秒后跳转） -->
+    <!-- 倒计时自动跳转脚本（轻量） -->
     <script>
-        setTimeout(() => {
-            window.location.href = "{__FINAL_LINK__}";
-        }, 5000);
+        let countdown = 5;
+        const countdownEl = document.getElementById('countdown');
+        const timer = setInterval(() => {
+            countdown--;
+            countdownEl.innerText = countdown;
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = "{__FINAL_LINK__}";
+            }
+        }, 1000);
     </script>
+    <style>
+        @keyframes jump-pulse {
+            0% { transform: translateX(0); filter: drop-shadow(0 0 10px #6366f1); }
+            100% { transform: translateX(20px); filter: drop-shadow(0 0 20px #06b6d4); }
+        }
+    </style>
 </body>
 </html>
