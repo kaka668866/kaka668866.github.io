@@ -1,20 +1,43 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-CN">
 <head>
-	<title>Url-Shorten-Worker</title>
-	<meta http-equiv="Refresh" content="1; url={__FINAL_LINK__}" />
-	<meta name="referrer" content="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短链跳转中</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-	<p>Redirecting..<br /><a href="{__FINAL_LINK__}">{__FINAL_LINK__}</a></p>
-	<script type="text/javascript">
-		/* <![CDATA[ */
-		setTimeout('window.location.replace( "{__FINAL_LINK__}" + window.location.hash );', 1000 )
+    <div class="container">
+        <header class="panel-header">
+            <div class="logo">
+                <i class="fas fa-link"></i>
+                <h1>卡卡短链</h1>
+            </div>
+        </header>
 
-/* ]]> */
-	</script>
+        <main class="form-card" style="text-align: center;">
+            <div style="margin-bottom: 24px;">
+                <i class="fas fa-arrow-right" style="font-size: 48px; color: #4299e1; margin-bottom: 16px;"></i>
+                <h2 style="color: #2c3e50; margin-bottom: 8px;">短链验证成功，即将跳转</h2>
+                <p style="color: #7f8c8d;">若未自动跳转，请点击下方链接</p>
+            </div>
+
+            <a href="{__FINAL_LINK__}" target="_blank" class="submit-btn" style="text-decoration: none; display: inline-block; width: 80%;">
+                <i class="fas fa-external-link-alt"></i> 立即访问
+            </a>
+        </main>
+
+        <footer class="panel-footer">
+            <p class="copyright">© 2026 卡卡短链 | 基于Cloudflare Worker开发</p>
+        </footer>
+    </div>
+
+    <!-- 自动跳转脚本（5秒后跳转） -->
+    <script>
+        setTimeout(() => {
+            window.location.href = "{__FINAL_LINK__}";
+        }, 5000);
+    </script>
 </body>
-
 </html>
