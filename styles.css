@@ -13,15 +13,15 @@ body {
   vertical-align: center;
   flex-wrap: wrap;
   align-content: center;
-  min-height: 100vh; /* 补充全屏垂直居中，优化体验 */
+  min-height: 100vh; /* 保证页面垂直居中 */
   color: #2a2b2c;
   background-color: #ebedee;
-  padding: 10px 0; /* 手机端上下内边距，避免卡片贴边 */
+  padding: 10px 0; /* 手机端上下留白 */
 }
-/* 新增容器适配 */
+/* 容器适配垂直布局 */
 .container {
   width: 100%;
-  max-width: 768px; /* 最大宽度与卡片一致 */
+  max-width: 768px;
   padding: 0 15px;
   margin: 0 auto;
 }
@@ -31,9 +31,8 @@ img {
 }
 .card {
   background-color: transparent;
-  width: 100%; /* 改为100%，适配容器 */
-  border-radius: 8px; /* 优化圆角，适配中文视觉 */
-  margin: 15px 0 !important; /* 垂直排列后增加卡片间距 */
+  width: 100%; /* 适配容器宽度 */
+  margin: 15px 0 !important; /* 垂直排列增加间距 */
 }
 .form-control {
   cursor: auto;
@@ -43,9 +42,8 @@ img {
 }
 .list-group-item {
   font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
-  border-radius: 6px !important; /* 统一列表项圆角 */
 }
-/* 响应式适配（简化，因已改为垂直排列） */
+/* 响应式适配 */
 @media (max-width: 769px) {
   .card {
     width: 100%;
@@ -56,7 +54,7 @@ img {
     width: 100%;
   }
 }
-/* 暗黑模式适配（补充表单样式） */
+/* 暗黑模式 */
 @media (prefers-color-scheme: dark) { 
   body {
     color: #d9d9d9; 
