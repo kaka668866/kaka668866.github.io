@@ -1,85 +1,126 @@
-/* --- kaka668866.github.io 专属科技感样式表 --- */
+/* --- kaka668866.github.io 专属优化版科技感样式表 --- */
 
 :root {
   --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  --accent-color: #00f2fe;
-  --bg-dark: #0f172a;
-  --card-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --accent-color: #00f2fe;    /* 亮青色 */
+  --text-bright: #ffffff;     /* 纯白文字 */
+  --text-muted: #94a3b8;      /* 辅助文字 */
+  --bg-dark: #020617;         /* 更深的底色，增加对比 */
+  --card-bg: rgba(15, 23, 42, 0.85); /* 调暗卡片背景 */
+  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
 body {
-  background: radial-gradient(circle at top right, #1e293b, #0f172a);
-  color: #f8fafc;
-  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top right, #1e293b, #020617);
+  color: var(--text-bright);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: 100vh;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
   overflow-x: hidden;
 }
 
-/* 毛玻璃卡片效果 */
+/* 容器自适应 */
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* 增强对比度的毛玻璃卡片 */
 .glass-card {
   background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 450px;
+  overflow: hidden;
 }
 
-.glass-card:hover {
-  border-color: rgba(0, 242, 254, 0.3);
-  box-shadow: 0 0 30px rgba(79, 172, 254, 0.2);
-}
-
+/* 标题文字：使用亮青色 */
 .card-header {
   background: transparent !important;
   border-bottom: 1px solid var(--glass-border) !important;
   color: var(--accent-color) !important;
-  font-weight: 600;
+  font-weight: 700 !important;
+  text-align: center;
+  padding: 1.5rem !important;
   letter-spacing: 1px;
 }
 
-/* 输入框美化 */
+/* 标签文字：强制设为亮白色 */
+label, .input-group-text, .small, .text-muted {
+  color: #e2e8f0 !important; /* 极浅的灰色，接近白色 */
+  font-weight: 500;
+}
+
+/* 输入框：加深背景，提亮文字 */
 .form-control {
-  background: rgba(15, 23, 42, 0.5) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
   border: 1px solid var(--glass-border) !important;
-  color: white !important;
+  color: #ffffff !important;
+  padding: 0.75rem 1rem;
+}
+
+/* 修改输入框提示语(Placeholder)颜色 */
+.form-control::placeholder {
+  color: #64748b !important;
 }
 
 .form-control:focus {
+  background: rgba(0, 0, 0, 0.6) !important;
   border-color: var(--accent-color) !important;
-  box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.1) !important;
+  box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.2) !important;
 }
 
-/* 按钮发光效果 */
+/* 按钮：保持高亮 */
 .btn-tech {
   background: var(--primary-gradient);
   border: none;
-  color: #0f172a;
+  color: #020617 !important;
   font-weight: 700;
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .btn-tech:hover {
+  filter: brightness(1.2);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px rgba(0, 242, 254, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 242, 254, 0.4);
 }
 
-/* 列表项自适应 */
+/* 列表项：增加背景深度 */
 .list-group-item {
-  background: rgba(15, 23, 42, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid var(--glass-border) !important;
-  color: #e2e8f0 !important;
-  margin-bottom: 0.8rem;
+  margin-bottom: 10px;
   border-radius: 12px !important;
+  color: #f8fafc !important;
+  transition: background 0.2s;
 }
 
-.code-font {
-  font-family: 'JetBrains Mono', monospace;
+.list-group-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 二维码容器：白色背景确保扫码识别率 */
+#qrcode {
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+/* 针对手机端的优化 */
+@media (max-width: 576px) {
+  .container-fluid { padding: 10px; }
+  .glass-card { margin: 10px 0; }
 }
