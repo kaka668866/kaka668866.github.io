@@ -1,126 +1,112 @@
-/* --- kaka668866.github.io 专属优化版科技感样式表 --- */
+/* --- Google Material Design 风格样式表 --- */
 
 :root {
-  --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  --accent-color: #00f2fe;    /* 亮青色 */
-  --text-bright: #ffffff;     /* 纯白文字 */
-  --text-muted: #94a3b8;      /* 辅助文字 */
-  --bg-dark: #020617;         /* 更深的底色，增加对比 */
-  --card-bg: rgba(15, 23, 42, 0.85); /* 调暗卡片背景 */
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --google-blue: #1a73e8;
+  --google-red: #ea4335;
+  --google-yellow: #fbbc04;
+  --google-green: #34a853;
+  --bg-light: #f8f9fa;
+  --text-main: #202124;
+  --text-secondary: #5f6368;
+  --border-color: #dadce0;
 }
 
 body {
-  background: radial-gradient(circle at top right, #1e293b, #020617);
-  color: var(--text-bright);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-main);
+  font-family: 'Product Sans', 'Roboto', Arial, sans-serif;
   min-height: 100vh;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
 }
 
-/* 容器自适应 */
 .container-fluid {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    padding: 20px;
-    gap: 20px;
+  max-width: 1000px;
+  padding: 40px 20px;
 }
 
-/* 增强对比度的毛玻璃卡片 */
+/* Google 标志性的白色圆角卡片 */
 .glass-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 450px;
-  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+  margin-bottom: 30px;
+  transition: box-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* 标题文字：使用亮青色 */
+.glass-card:hover {
+  box-shadow: 0 4px 12px 0 rgba(60,64,67,0.3);
+}
+
 .card-header {
   background: transparent !important;
-  border-bottom: 1px solid var(--glass-border) !important;
-  color: var(--accent-color) !important;
-  font-weight: 700 !important;
-  text-align: center;
-  padding: 1.5rem !important;
-  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--google-blue) !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  padding: 20px 24px !important;
 }
 
-/* 标签文字：强制设为亮白色 */
-label, .input-group-text, .small, .text-muted {
-  color: #e2e8f0 !important; /* 极浅的灰色，接近白色 */
-  font-weight: 500;
-}
-
-/* 输入框：加深背景，提亮文字 */
+/* 输入框：Google 搜索框风格 */
 .form-control {
-  background: rgba(0, 0, 0, 0.4) !important;
-  border: 1px solid var(--glass-border) !important;
-  color: #ffffff !important;
-  padding: 0.75rem 1rem;
-}
-
-/* 修改输入框提示语(Placeholder)颜色 */
-.form-control::placeholder {
-  color: #64748b !important;
+  background: #ffffff !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  color: var(--text-main) !important;
+  padding: 12px 16px !important;
+  font-size: 16px !important;
 }
 
 .form-control:focus {
-  background: rgba(0, 0, 0, 0.6) !important;
-  border-color: var(--accent-color) !important;
-  box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.2) !important;
+  border-color: var(--google-blue) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
 }
 
-/* 按钮：保持高亮 */
+/* 按钮：Google Blue 风格 */
 .btn-tech {
-  background: var(--primary-gradient);
+  background: var(--google-blue) !important;
+  color: #ffffff !important;
   border: none;
-  color: #020617 !important;
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
+  border-radius: 100px !important; /* 胶囊形状 */
+  padding: 10px 24px !important;
+  font-weight: 500 !important;
+  letter-spacing: .25px;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
 .btn-tech:hover {
-  filter: brightness(1.2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 242, 254, 0.4);
+  background: #1765cc !important;
+  box-shadow: 0 1px 3px 1px rgba(66,133,244,0.15), 0 1px 2px 0 rgba(66,133,244,0.3);
 }
 
-/* 列表项：增加背景深度 */
+/* 列表项：干净整洁 */
 .list-group-item {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid var(--glass-border) !important;
-  margin-bottom: 10px;
-  border-radius: 12px !important;
-  color: #f8fafc !important;
-  transition: background 0.2s;
+  background: white !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 16px 24px !important;
+  color: var(--text-main) !important;
 }
 
-.list-group-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+.list-group-item:last-child {
+  border-bottom: none !important;
 }
 
-/* 二维码容器：白色背景确保扫码识别率 */
+.code-font {
+  font-family: 'Roboto Mono', monospace;
+  color: var(--google-green);
+}
+
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* 二维码美化 */
 #qrcode {
-  background: white;
   padding: 10px;
-  border-radius: 12px;
-  display: inline-block;
-}
-
-/* 针对手机端的优化 */
-@media (max-width: 576px) {
-  .container-fluid { padding: 10px; }
-  .glass-card { margin: 10px 0; }
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
