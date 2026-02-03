@@ -1,152 +1,81 @@
 <!doctype html>
 <html>
 <head>
-  <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <title>Shorter URL - Admin</title>
+  <title>Admin - URL Shortener</title>
   <link rel="stylesheet" href="https://kaka668866.github.io/styles.css">
 </head>
 <body>
-  <div class="container-fluid d-flex align-items-start flex-wrap">
-    <div class="card shadow m-3">
-      <h5 class="card-header">URL Shortener (Kaka Custom)</h5>
+  <div class="container mt-4">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">URL Shortener Management</div>
       <div class="card-body">
-        <div class="input-group mb-3">
-          <span class="input-group-text">Long URL</span>
-          <input type="text" class="form-control" id="longURL" placeholder="https://example.com/">
+        <div class="mb-3">
+          <label class="form-label">Long URL</label>
+          <input type="text" class="form-control" id="longURL" placeholder="https://example.com">
         </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Custom Key</span>
-          <input type="text" class="form-control" id="keyPhrase" placeholder="Optional">
+        <div class="mb-3">
+          <label class="form-label">Custom Key (Optional)</label>
+          <input type="text" class="form-control" id="keyPhrase" placeholder="e.g. my-link">
         </div>
-        <div class="input-group mb-3">
-          <button class="btn btn-primary w-100" type="button" onclick='shorturl()' id="addBtn">Shorten it</button>
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Password</span>
-          <input class="form-control" type="text" value="__PASSWORD__" readonly id="passwordText">
-        </div>
-      </div>
-    </div>
-
-    <div class="card shadow m-3">
-      <h5 class="card-header">Management</h5>
-      <div class="card-body">
-        <div class="btn-group mb-3 w-100">
-          <button class="btn btn-info text-white" onclick='loadKV()'>Load All from KV</button>
-          <button class="btn btn-danger" onclick='clearLocalStorage()'>Clear Cache</button>
-        </div>
-        <div id="urlList" class="list-group"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="resultModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header"><h5 class="modal-title">Success!</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-        <div class="modal-body">
-          <div id="result" class="alert alert-success text-break"></div>
-          <div id="qrcode" class="d-flex justify-content-center"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick='copyText()'>Copy URL</button>
+        <button class="btn btn-success w-100" id="addBtn" onclick="shorturl()">Generate Short Link</button>
+        <hr>
+        <div class="mb-3">
+          <label class="form-label">API Status</label>
+          <input type="text" class="form-control bg-light" id="apiStatus" readonly>
+          <input type="hidden" id="passwordText" value="__PASSWORD__">
         </div>
       </div>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/lrsjng/jquery-qrcode@0.18.0/dist/jquery-qrcode.min.js"></script>
 
   <script>
-    // 核心逻辑直接写在这里，防止 GitHub 路径解析错误
-    let apiSrv = window.location.pathname; // 这将获取 "/你的密码"
+    // 自动检测并显示当前访问的路径，方便你排查
+    const currentPath = window.location.pathname;
+    document.getElementById('apiStatus').value = "Target API: " + currentPath;
 
-    function shorturl() {
-      let longURL = document.querySelector("#longURL").value;
-      let keyPhrase = document.querySelector("#keyPhrase").value.replace(/\s/g, "-");
-      let password = document.querySelector("#passwordText").value;
+    async function shorturl() {
+      const longURL = document.getElementById("longURL").value;
+      const keyPhrase = document.getElementById("keyPhrase").value.trim();
+      const password = document.getElementById("passwordText").value;
+      const btn = document.getElementById("addBtn");
 
       if (!longURL) { alert("Please enter a URL"); return; }
 
-      const btn = document.getElementById("addBtn");
       btn.disabled = true;
-      btn.innerHTML = 'Sending...';
+      btn.innerHTML = 'Connecting to Worker...';
 
-      fetch(apiSrv, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cmd: "add", url: longURL, key: keyPhrase, password: password })
-      })
-      .then(res => res.json())
-      .then(data => {
-        btn.disabled = false;
-        btn.innerHTML = 'Shorten it';
+      try {
+        const response = await fetch(currentPath, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            cmd: "add", 
+            url: longURL, 
+            key: keyPhrase, 
+            password: password 
+          })
+        });
+
+        if (!response.ok) throw new Error('HTTP Error: ' + response.status);
+
+        const data = await response.json();
         if (data.status === 200) {
-          let finalUrl = window.location.origin + "/" + data.key;
-          document.getElementById("result").innerText = finalUrl;
-          
-          // 生成二维码
-          $("#qrcode").empty().qrcode({ text: finalUrl, size: 150 });
-          
-          new bootstrap.Modal(document.getElementById('resultModal')).show();
-          loadKV(); // 刷新列表
+          const resultUrl = window.location.origin + "/" + data.key;
+          alert("Success! Your link: " + resultUrl);
+          window.location.reload(); // 刷新查看新纪录
         } else {
-          alert("Error: " + data.error);
+          alert("Worker Error: " + data.error);
         }
-      })
-      .catch(err => {
-        btn.disabled = false;
-        btn.innerHTML = 'Shorten it';
+      } catch (err) {
         console.error(err);
-        alert("Network Error: 无法连接到 Worker。请确保你访问的是: " + window.location.origin + "/你的密码");
-      });
-    }
-
-    function copyText() {
-      let text = document.getElementById("result").innerText;
-      navigator.clipboard.writeText(text).then(() => alert("Copied!"));
-    }
-
-    function loadKV() {
-      let password = document.querySelector("#passwordText").value;
-      fetch(apiSrv, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cmd: "qryall", password: password })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 200) {
-          let html = '';
-          data.kvlist.forEach(item => {
-            html += `<div class="list-group-item d-flex justify-content-between align-items-center">
-              <small class="text-truncate" style="max-width: 200px;">${item.key} -> ${item.value}</small>
-              <button class="btn btn-sm btn-outline-danger" onclick="delKey('${item.key}')">Del</button>
-            </div>`;
-          });
-          document.getElementById("urlList").innerHTML = html;
-        }
-      });
-    }
-
-    function delKey(key) {
-      if(!confirm("Delete " + key + "?")) return;
-      let password = document.querySelector("#passwordText").value;
-      fetch(apiSrv, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cmd: "del", key: key, password: password })
-      }).then(() => loadKV());
-    }
-
-    function clearLocalStorage() {
-      localStorage.clear();
-      document.getElementById("urlList").innerHTML = '';
-      alert("Local Cache Cleared");
+        alert("连接失败！原因可能是：\n1. SSL 证书尚未生效\n2. 你没有使用 '域名/密码' 访问\n3. Worker 未配置 PASSWORD 变量\n\n报错信息: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Generate Short Link';
+      }
     }
   </script>
 </body>
