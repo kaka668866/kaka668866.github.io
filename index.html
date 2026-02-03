@@ -3,63 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>卡卡短链管理面板</title>
+    <title>星云短链 | 科技感短链接生成工具</title>
+    <!-- 引入科技感无衬线字体 + 字体图标 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- 可选：引入字体图标（美化按钮/图标，无需额外下载，直接生效） -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- 背景装饰：科技感几何线条（动态） -->
+    <div class="bg-decoration">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+    </div>
+
+    <!-- 主容器：居中+适配 -->
     <div class="container">
-        <!-- 头部logo+标题 -->
+        <!-- 头部：科技感logo+标题+标语 -->
         <header class="panel-header">
             <div class="logo">
-                <i class="fas fa-link"></i>
-                <h1>卡卡短链</h1>
+                <i class="fas fa-bolt-lightning neon-icon"></i>
+                <h1>星云短链</h1>
             </div>
-            <p class="subtitle">简单、高效的短链接生成工具</p>
+            <p class="subtitle">CYBER URL SHORTENER | 高效生成 · 稳定访问</p>
+            <div class="divider"></div>
         </header>
 
-        <!-- 核心表单（保留原有name属性，保证Worker交互逻辑） -->
+        <!-- 核心表单：玻璃拟态卡片 + 霓虹光效边框 -->
         <main class="form-card">
-            <form method="post" action="/__PASSWORD__">
+            <form method="post" action="/__PASSWORD__" class="url-form">
+                <!-- 长链接输入区 -->
                 <div class="form-group">
-                    <label for="url">
-                        <i class="fas fa-globe"></i> 原长链接
+                    <label for="url" class="form-label">
+                        <i class="fas fa-globe-alt label-icon"></i>
+                        原长链接 <span class="required">*</span>
                     </label>
                     <input 
                         type="text" 
                         id="url" 
                         name="url" 
                         required
-                        placeholder="请输入需要缩短的长链接（如：https://www.xxx.com/xxxx）"
+                        class="form-input"
+                        placeholder="请输入需缩短的长链接（支持http/https）"
                         autocomplete="off"
                     >
                 </div>
 
+                <!-- 自定义短链输入区 -->
                 <div class="form-group">
-                    <label for="custom">
-                        <i class="fas fa-pen"></i> 自定义短链（可选）
+                    <label for="custom" class="form-label">
+                        <i class="fas fa-code label-icon"></i>
+                        自定义短链 <span class="optional">（可选）</span>
                     </label>
                     <input 
                         type="text" 
                         id="custom" 
                         name="custom" 
-                        placeholder="留空则自动生成，如：abc123（仅字母/数字）"
+                        class="form-input"
+                        placeholder="留空自动生成，仅支持字母/数字（6-12位）"
                         autocomplete="off"
                     >
-                    <small class="tip">仅支持字母、数字，无特殊符号，长度建议6-12位</small>
+                    <p class="form-tip"><i class="fas fa-info-circle"></i> 自定义短链若已存在，将生成失败</p>
                 </div>
 
+                <!-- 提交按钮：霓虹渐变 + hover光效 -->
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-magic"></i> 生成短链接
+                    <i class="fas fa-magic btn-icon"></i>
+                    生成短链接
                 </button>
             </form>
         </main>
 
-        <!-- 底部说明+提示 -->
+        <!-- 底部：科技感说明 + 版权 -->
         <footer class="panel-footer">
-            <p class="hint"><i class="fas fa-lightbulb"></i> 生成后直接复制短链接即可使用，支持永久有效</p>
-            <p class="copyright">© 2026 卡卡短链 | 基于Cloudflare Worker开发</p>
+            <div class="footer-hint">
+                <i class="fas fa-shield-halved hint-icon"></i>
+                <p>基于Cloudflare Worker构建 · 全球节点加速 · 数据安全加密</p>
+            </div>
+            <p class="copyright">© 2026 星云短链 | CYBER URL SHORTENER · 科技感短链工具</p>
         </footer>
     </div>
 </body>
