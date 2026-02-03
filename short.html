@@ -1,65 +1,185 @@
 <!doctype html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <title>Admin - Shorter URL</title>
-  <link rel="stylesheet" href="https://kaka668866.github.io/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" >
+  <title>Kaka - Shorter Terminal</title>
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      --accent-color: #00f2fe;
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #1e293b, #0f172a);
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* 毛玻璃卡片 */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 30px rgba(79, 172, 254, 0.2);
+    }
+
+    .card-header {
+      background: transparent;
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+    }
+
+    .input-group-text {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--glass-border);
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    .form-control {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--glass-border);
+      color: white;
+      padding: 0.75rem 1rem;
+    }
+
+    .form-control:focus {
+      background: rgba(15, 23, 42, 0.8);
+      color: white;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.1);
+    }
+
+    /* 科技感按钮 */
+    .btn-tech {
+      background: var(--primary-gradient);
+      border: none;
+      color: #0f172a;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 0.8rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-tech:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px rgba(0, 242, 254, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .list-group-item {
+      background: rgba(15, 23, 42, 0.3);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 0.75rem;
+      border-radius: 12px !important;
+      color: #e2e8f0;
+      padding: 1rem;
+    }
+
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    /* 滚动条美化 */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+    @media (max-width: 576px) {
+      body { padding: 1rem; align-items: flex-start; }
+      .glass-card { border-radius: 16px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container-fluid d-flex align-items-start flex-wrap">
-    <div class="card shadow m-3">
-      <h5 class="card-header">URL Shortener (Kaka Custom)</h5>
-      <div class="card-body">
-        <div class="input-group mb-3">
-          <span class="input-group-text">长链接</span>
-          <input type="text" class="form-control" id="longURL" placeholder="https://example.com/">
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">自定义后缀</span>
-          <input type="text" class="form-control" id="keyPhrase" placeholder="可选，留空则随机生成">
-        </div>
-        <div class="input-group mb-3">
-          <button class="btn btn-primary w-100" type="button" onclick='shorturl()' id="addBtn">缩短网址 (Shorten it)</button>
-        </div>
-        <div class="input-group mb-3 border rounded p-2 bg-light">
-          <span class="text-muted small">当前验证密码：</span>
-          <input class="form-control form-control-sm border-0 bg-transparent" type="text" value="__PASSWORD__" readonly id="passwordText">
-        </div>
+
+  <div class="container d-flex flex-column gap-4 py-5">
+    
+    <div class="glass-card mx-auto overflow-hidden">
+      <div class="card-header">
+        <span class="fs-5">✦ Link Genesis ✦</span>
       </div>
-      <div class="card-footer text-center">
-        <small><a href="https://github.com/kaka668866/Url-Shorten-Worker/" target="_blank">My GitHub Repository</a></small>
+      <div class="card-body p-4">
+        <div class="mb-4">
+          <label class="small text-uppercase text-muted mb-2 d-block">Target Destination</label>
+          <input type="text" class="form-control" id="longURL" placeholder="https://">
+        </div>
+        
+        <div class="mb-4">
+          <label class="small text-uppercase text-muted mb-2 d-block">Custom Alias</label>
+          <input type="text" class="form-control" id="keyPhrase" placeholder="Optional">
+        </div>
+
+        <button class="btn btn-tech w-100 mb-4" id="addBtn" onclick="shorturl()">
+          SYNCHRONIZE & SHORTEN
+        </button>
+
+        <div class="pt-3 border-top border-secondary">
+          <div class="d-flex justify-content-between align-items-center mb-2 text-muted small">
+            <span>Terminal Key</span>
+            <span class="badge bg-secondary">Secure</span>
+          </div>
+          <input class="form-control form-control-sm text-center border-0 code-font" 
+                 style="background:transparent; color: var(--accent-color)" 
+                 type="text" value="__PASSWORD__" readonly id="passwordText">
+        </div>
       </div>
     </div>
 
-    <div class="card shadow m-3">
-      <h5 class="card-header">数据管理 (Management)</h5>
-      <div class="card-body">
-        <div class="btn-group mb-3 w-100">
-          <button class="btn btn-success" onclick='loadKV()'>从同步库(KV)加载列表</button>
-          <button class="btn btn-outline-danger" onclick='clearLocalStorage()'>清空本地缓存</button>
-        </div>
-        <div id="urlList" class="list-group">
-          </div>
+    <div class="glass-card mx-auto overflow-hidden">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span class="small">DATABASE</span>
+        <button class="btn btn-sm btn-outline-info border-0" onclick="loadKV()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/></svg>
+        </button>
+      </div>
+      <div class="card-body p-4" style="max-height: 400px; overflow-y: auto;">
+        <div id="urlList"></div>
       </div>
     </div>
+
   </div>
 
-  <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">生成成功 (Result)</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+  <div class="modal fade" id="resultModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-card border-0">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="text-info w-100 text-center">LINK READY</h5>
         </div>
-        <div class="modal-body">
-          <div class="alert alert-primary text-break" id="result" style="cursor: pointer;" onclick="copyText()"></div>
-          <div id="qrcode" class="d-flex justify-content-center mt-3"></div>
-          <p class="text-center mt-2 small text-muted">点击上方蓝框可直接复制</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+        <div class="modal-body p-4 text-center">
+          <div class="p-3 rounded-4 bg-dark border border-secondary mb-4 code-font" 
+               id="result" style="cursor: pointer; color: #00f2fe; word-break: break-all;"
+               onclick="copyText()"></div>
+          <div id="qrcode" class="d-inline-block p-3 bg-white rounded-4 shadow-lg mb-3"></div>
+          <p class="small text-muted">Click the link box to copy</p>
         </div>
       </div>
     </div>
@@ -70,106 +190,76 @@
   <script src="https://cdn.jsdelivr.net/gh/lrsjng/jquery-qrcode@0.18.0/dist/jquery-qrcode.min.js"></script>
 
   <script>
-    // 关键：自动获取当前访问的域名和协议
     const currentOrigin = window.location.origin;
-    const apiPath = window.location.pathname; // 这里的路径就是你的密码
+    const apiPath = window.location.pathname;
 
     function shorturl() {
       let longURL = document.querySelector("#longURL").value;
       let keyPhrase = document.querySelector("#keyPhrase").value.trim().replace(/\s/g, "-");
       let password = document.querySelector("#passwordText").value;
-
-      if (!longURL) { alert("URL不能为空！"); return; }
-
       const btn = document.getElementById("addBtn");
+
+      if (!longURL) return;
       btn.disabled = true;
-      btn.innerHTML = '正在生成...';
+      btn.innerHTML = 'SYNCING...';
 
       fetch(apiPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cmd: "add", url: longURL, key: keyPhrase, password: password })
-      })
-      .then(res => res.json())
-      .then(data => {
+      }).then(res => res.json()).then(data => {
         btn.disabled = false;
-        btn.innerHTML = '缩短网址 (Shorten it)';
+        btn.innerHTML = 'SYNCHRONIZE & SHORTEN';
         if (data.status === 200) {
-          // 动态拼接当前域名，彻底解决 your-worker-domain.com 问题
           let finalUrl = currentOrigin + "/" + data.key;
           document.getElementById("result").innerText = finalUrl;
-          
-          // 生成二维码
-          $("#qrcode").empty().qrcode({ text: finalUrl, size: 150, render: 'canvas' });
-          
+          $("#qrcode").empty().qrcode({ text: finalUrl, size: 160, fill: '#0f172a', background: '#ffffff', radius: 10 });
           new bootstrap.Modal(document.getElementById('resultModal')).show();
-          loadKV(); // 自动刷新列表
-        } else {
-          alert("错误: " + data.error);
+          loadKV();
         }
-      })
-      .catch(err => {
+      }).catch(() => {
         btn.disabled = false;
-        btn.innerHTML = '缩短网址 (Shorten it)';
-        alert("网络错误，请检查Worker状态");
+        btn.innerHTML = 'RETRY';
       });
     }
 
     function copyText() {
-      let text = document.getElementById("result").innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("已成功复制到剪贴板！");
-      });
+      navigator.clipboard.writeText(document.getElementById("result").innerText);
+      alert("Link Copied to Clipboard!");
     }
 
     function loadKV() {
-      let password = document.querySelector("#passwordText").value;
       fetch(apiPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cmd: "qryall", password: password })
-      })
-      .then(res => res.json())
-      .then(data => {
+        body: JSON.stringify({ cmd: "qryall", password: document.querySelector("#passwordText").value })
+      }).then(res => res.json()).then(data => {
         if (data.status === 200) {
           let html = '';
           data.kvlist.forEach(item => {
-            // 这里也使用动态域名
-            let fullUrl = currentOrigin + "/" + item.key;
             html += `
               <div class="list-group-item">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <strong class="text-primary">${item.key}</strong>
-                  <button class="btn btn-sm btn-outline-danger" onclick="delKey('${item.key}')">删除</button>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="code-font text-info fw-bold">${item.key}</span>
+                  <button class="btn btn-sm btn-link text-danger p-0 border-0" onclick="delKey('${item.key}')">REMOVE</button>
                 </div>
-                <div class="small text-muted text-truncate" title="${item.value}">原链: ${item.value}</div>
-                <div class="small text-success text-break">短链: ${fullUrl}</div>
+                <div class="small text-muted text-truncate code-font">REF: ${item.value}</div>
               </div>`;
           });
-          document.getElementById("urlList").innerHTML = html || '<div class="text-center p-3">库中暂无数据</div>';
+          document.getElementById("urlList").innerHTML = html || '<div class="text-center text-muted">EMPTY DATABASE</div>';
         }
       });
     }
 
     function delKey(key) {
-      if(!confirm("确定要删除 " + key + " 吗？")) return;
-      let password = document.querySelector("#passwordText").value;
+      if(!confirm("DELETE "+key+"?")) return;
       fetch(apiPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cmd: "del", key: key, password: password })
+        body: JSON.stringify({ cmd: "del", key: key, password: document.querySelector("#passwordText").value })
       }).then(() => loadKV());
     }
 
-    function clearLocalStorage() {
-      if(confirm("确定要清除本地缓存吗？这不会删除库里的数据。")) {
-        localStorage.clear();
-        document.getElementById("urlList").innerHTML = '';
-        alert("缓存已清理");
-      }
-    }
-
-    // 页面加载后自动尝试拉取一次列表
     window.onload = loadKV;
   </script>
 </body>
