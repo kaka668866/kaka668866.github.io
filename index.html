@@ -1,69 +1,72 @@
 <!doctype html>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" /> <!-- 修正txt/html错误 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <title>卡卡短链系统</title>
   <link rel="stylesheet" href="styles.css"> <!-- 指向本地样式文件 -->
 </head>
 <body>
-  <div class="d-flex align-items-start flex-wrap">
-  <div class="card shadow m-3">
-    <h5 class="card-header">卡卡短链系统 - 基于Cloudflare Worker+KV构建</h5>
-    <div class="card-body">
-      <h5 class="card-title"> </h5>
+  <!-- 移除弹性布局，改为垂直排列 -->
+  <div class="container py-4">
+    <!-- 卡卡短链系统主模块 -->
+    <div class="card shadow m-3">
+      <h5 class="card-header">卡卡短链系统 - 基于Cloudflare Worker+KV构建</h5>
+      <div class="card-body">
+        <h5 class="card-title"> </h5>
 
-      <div class="input-group mb-3">
+        <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">原始长链接</span>
-        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="示例: https://example.com/" oninput="loadUrlList()">
-      </div>
+          <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="示例: https://example.com/" oninput="loadUrlList()">
+        </div>
 
-      <div class="input-group mb-3">
+        <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon2">自定义短链后缀</span>
-        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="自定义短链关键词">
-      </div>
+          <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="自定义短链关键词">
+        </div>
 
-      <div class="input-group mb-3">
-        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">生成短链</button>
-      </div>
+        <div class="input-group mb-3">
+          <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">生成短链</button>
+        </div>
 
-      <div class="input-group mb-3">
+        <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon3">管理密码</span>
-        <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
+          <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
+        </div>
+      </div>
+      <div class="card-footer">
+        <span> <a href="https://github.com/crazypeace/Url-Shorten-Worker/" target="_blank">开源地址</a> </span>
       </div>
     </div>
-    <div class="card-footer">
-      <span> KaKa修改短链网址系统 </span>
-    </div>
-  </div>
 
-  <div class="card shadow m-3">
-    <h5 class="card-header">本地存储列表</h5>
-    <div class="card-body">
-      <h5 class="card-title"> </h5>
-      <div class="input-group mb-3">
-        <button class="btn btn-success" type="button" onclick='loadUrlList()' id="loadListBtn">加载本地存储</button>
-        <button class="btn btn-danger" type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">清空本地存储</button>
-        <button class="btn btn-info" type="button" onclick='loadKV()' id="loadKV2localStgBtn">同步KV到本地</button>
-      </div>
+    <!-- 本地存储列表模块（移至主模块下方，垂直排列） -->
+    <div class="card shadow m-3">
+      <h5 class="card-header">本地存储列表</h5>
+      <div class="card-body">
+        <h5 class="card-title"> </h5>
+        <div class="input-group mb-3">
+          <button class="btn btn-success" type="button" onclick='loadUrlList()' id="loadListBtn">加载本地存储</button>
+          <button class="btn btn-danger" type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">清空本地存储</button>
+          <button class="btn btn-info" type="button" onclick='loadKV()' id="loadKV2localStgBtn">同步KV到本地</button>
+        </div>
 
-      <div class="card-text">
-        <div class="list-group" id="urlList"> <!-- 修复classs拼写错误 -->
-          <div class="mb-3 list-group-item">
-            <div class="input-group">
-              <button type="button" class="btn btn-danger" onclick='deleteShortUrl("4sure")' id="delBtn-4sure">删除</button>
-              <button type="button" class="btn btn-info" onclick='queryVisitCount("4sure")' id="qryCntBtn-4sure">访问量</button>
-              <span class="form-control">https://1way.eu.org/4sure</span>
-            </div>
-            <div class="form-control mt-2">
-              https://en.y2mate.is/s36/youtube-to-mp3.html
+        <div class="card-text">
+          <div class="list-group" id="urlList"> <!-- 修复classs拼写错误 -->
+            <div class="mb-3 list-group-item">
+              <div class="input-group">
+                <button type="button" class="btn btn-danger" onclick='deleteShortUrl("4sure")' id="delBtn-4sure">删除</button>
+                <button type="button" class="btn btn-info" onclick='queryVisitCount("4sure")' id="qryCntBtn-4sure">访问量</button>
+                <span class="form-control">https://1way.eu.org/4sure</span>
+              </div>
+              <div class="form-control mt-2">
+                https://en.y2mate.is/s36/youtube-to-mp3.html
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <!-- 结果弹窗 -->
