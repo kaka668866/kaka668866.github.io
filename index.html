@@ -1,91 +1,92 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星云短链 | 科技感短链接生成工具</title>
-    <!-- 引入科技感无衬线字体 + 字体图标 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>卡卡短链系统</title>
+  <link rel="stylesheet" href="styles.css"> <!-- 指向本地样式文件 -->
 </head>
 <body>
-    <!-- 背景装饰：科技感几何线条（动态） -->
-    <div class="bg-decoration">
-        <div class="line line-1"></div>
-        <div class="line line-2"></div>
-        <div class="line line-3"></div>
-        <div class="dot dot-1"></div>
-        <div class="dot dot-2"></div>
+  <div class="d-flex align-items-start flex-wrap">
+  <div class="card shadow m-3">
+    <h5 class="card-header">卡卡短链系统 - 基于Cloudflare Worker+KV构建</h5>
+    <div class="card-body">
+      <h5 class="card-title"> </h5>
+
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">原始长链接</span>
+        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="示例: https://example.com/" oninput="loadUrlList()">
+      </div>
+
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon2">自定义短链后缀</span>
+        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="自定义短链关键词">
+      </div>
+
+      <div class="input-group mb-3">
+        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">生成短链</button>
+      </div>
+
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon3">管理密码</span>
+        <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
+      </div>
     </div>
-
-    <!-- 主容器：居中+适配 -->
-    <div class="container">
-        <!-- 头部：科技感logo+标题+标语 -->
-        <header class="panel-header">
-            <div class="logo">
-                <i class="fas fa-bolt-lightning neon-icon"></i>
-                <h1>星云短链</h1>
-            </div>
-            <p class="subtitle">CYBER URL SHORTENER | 高效生成 · 稳定访问</p>
-            <div class="divider"></div>
-        </header>
-
-        <!-- 核心表单：玻璃拟态卡片 + 霓虹光效边框 -->
-        <main class="form-card">
-            <form method="post" action="/__PASSWORD__" class="url-form">
-                <!-- 长链接输入区 -->
-                <div class="form-group">
-                    <label for="url" class="form-label">
-                        <i class="fas fa-globe-alt label-icon"></i>
-                        原长链接 <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="url" 
-                        name="url" 
-                        required
-                        class="form-input"
-                        placeholder="请输入需缩短的长链接（支持http/https）"
-                        autocomplete="off"
-                    >
-                </div>
-
-                <!-- 自定义短链输入区 -->
-                <div class="form-group">
-                    <label for="custom" class="form-label">
-                        <i class="fas fa-code label-icon"></i>
-                        自定义短链 <span class="optional">（可选）</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="custom" 
-                        name="custom" 
-                        class="form-input"
-                        placeholder="留空自动生成，仅支持字母/数字（6-12位）"
-                        autocomplete="off"
-                    >
-                    <p class="form-tip"><i class="fas fa-info-circle"></i> 自定义短链若已存在，将生成失败</p>
-                </div>
-
-                <!-- 提交按钮：霓虹渐变 + hover光效 -->
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-magic btn-icon"></i>
-                    生成短链接
-                </button>
-            </form>
-        </main>
-
-        <!-- 底部：科技感说明 + 版权 -->
-        <footer class="panel-footer">
-            <div class="footer-hint">
-                <i class="fas fa-shield-halved hint-icon"></i>
-                <p>基于Cloudflare Worker构建 · 全球节点加速 · 数据安全加密</p>
-            </div>
-            <p class="copyright">© 2026 星云短链 | CYBER URL SHORTENER · 科技感短链工具</p>
-        </footer>
+    <div class="card-footer">
+      <span> <a href="https://github.com/crazypeace/Url-Shorten-Worker/" target="_blank">开源地址</a> </span>
     </div>
+  </div>
+
+  <div class="card shadow m-3">
+    <h5 class="card-header">本地存储列表</h5>
+    <div class="card-body">
+      <h5 class="card-title"> </h5>
+      <div class="input-group mb-3">
+        <button class="btn btn-success" type="button" onclick='loadUrlList()' id="loadListBtn">加载本地存储</button>
+        <button class="btn btn-danger" type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">清空本地存储</button>
+        <button class="btn btn-info" type="button" onclick='loadKV()' id="loadKV2localStgBtn">同步KV到本地</button>
+      </div>
+
+      <div class="card-text">
+        <div class="list-group" id="urlList"> <!-- 修复classs拼写错误 -->
+          <div class="mb-3 list-group-item">
+            <div class="input-group">
+              <button type="button" class="btn btn-danger" onclick='deleteShortUrl("4sure")' id="delBtn-4sure">删除</button>
+              <button type="button" class="btn btn-info" onclick='queryVisitCount("4sure")' id="qryCntBtn-4sure">访问量</button>
+              <span class="form-control">https://1way.eu.org/4sure</span>
+            </div>
+            <div class="form-control mt-2">
+              https://en.y2mate.is/s36/youtube-to-mp3.html
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- 结果弹窗 -->
+  <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">生成结果</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="result">暂无结果</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="复制成功!">复制短链</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 依赖脚本 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/lrsjng/jquery-qrcode@0.18.0/dist/jquery-qrcode.min.js" crossorigin="anonymous"></script>
+  <script src="main.js"></script> <!-- 指向本地Worker逻辑脚本 -->
 </body>
 </html>
