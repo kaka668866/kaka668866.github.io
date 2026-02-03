@@ -1,107 +1,66 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <title>Shorter URL</title>
-    <!-- 
-  <link rel="stylesheet" href="https://crazypeace.github.io/Url-Shorten-Worker/styles.css">
-    -->
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/crazypeace/Url-Shorten-Worker/styles.css">
-  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡卡短链管理面板</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 可选：引入字体图标（美化按钮/图标，无需额外下载，直接生效） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="d-flex align-items-start flex-wrap">
-  <div class="card shadow m-3">
-    <h5 class="card-header">A URL Shortener created using free Cloudflare worker and KV</h5>
-    <div class="card-body">
-      <h5 class="card-title"> </h5>
-
-      <div class="input-group mb-3">
-
-          <span class="input-group-text" id="basic-addon1">Long URL</span>
-
-        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="Example: https://example.com/" oninput="loadUrlList()">
-      </div>
-
-      <div class="input-group mb-3">
-
-          <span class="input-group-text" id="basic-addon2">Custom Short URL</span>
-
-        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="As you wish">
-      </div>
-
-      <div class="input-group mb-3">
-        <button class="btn btn-primary" type="button" onclick='shorturl()' id="addBtn">Shorten it</button>
-      </div>
-
-      <div class="input-group mb-3">
-
-          <span class="input-group-text" id="basic-addon3">password</span>
-
-        <input class="form-control" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
-      </div>
-
-    </div>
-    
-    <div class="card-footer">
-      <span> <a href="https://github.com/crazypeace/Url-Shorten-Worker/" target="_self">Fork me on GitHub</a> </span>
-    </div>
-  </div>
-
-  <div class="card shadow m-3">
-    <h5 class="card-header">LocalStorage List</h5>
-    <div class="card-body">
-      <h5 class="card-title"> </h5>
-      <div class="input-group mb-3">
-        <button class="btn btn-success" type="button" onclick='loadUrlList()' id="loadListBtn">load localStorage</button>
-        <button class="btn btn-danger" type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">clear localStorage</button>
-        <button class="btn btn-info" type="button" onclick='loadKV()' id="loadKV2localStgBtn">load KV to localStorage</button>
-      </div>
-
-      <div class="card-text">
-        <div classs="list-group" id="urlList">
-          <div class="mb-3 list-group-item">
-            <div class="input-group">
-              <button type="button" class="btn btn-danger" onclick='deleteShortUrl("4sure")' id="delBtn-4sure">X</button>
-              <button type="button" class="btn btn-info" onclick='queryVisitCount("4sure")' id="qryCntBtn-4sure">?</button>
-              <span class="form-control">https://1way.eu.org/4sure</span>
+    <div class="container">
+        <!-- 头部logo+标题 -->
+        <header class="panel-header">
+            <div class="logo">
+                <i class="fas fa-link"></i>
+                <h1>卡卡短链</h1>
             </div>
-            <div class="form-control">
-              https://en.y2mate.is/s36/youtube-to-mp3.html
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
+            <p class="subtitle">简单、高效的短链接生成工具</p>
+        </header>
 
-  <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="resultModalLabel">Result</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="result">No result</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Copied!">Copy</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/gh/lrsjng/jquery-qrcode@0.18.0/dist/jquery-qrcode.min.js" crossorigin="anonymous"></script>
+        <!-- 核心表单（保留原有name属性，保证Worker交互逻辑） -->
+        <main class="form-card">
+            <form method="post" action="/__PASSWORD__">
+                <div class="form-group">
+                    <label for="url">
+                        <i class="fas fa-globe"></i> 原长链接
+                    </label>
+                    <input 
+                        type="text" 
+                        id="url" 
+                        name="url" 
+                        required
+                        placeholder="请输入需要缩短的长链接（如：https://www.xxx.com/xxxx）"
+                        autocomplete="off"
+                    >
+                </div>
 
-  <script src="https://crazypeace.github.io/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
-  <!-- 如果使用CDN资源就放开这一句, 把上面那一句注释掉
-    <script src="https://cdn.jsdelivr.net/gh/crazypeace/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
-  -->
+                <div class="form-group">
+                    <label for="custom">
+                        <i class="fas fa-pen"></i> 自定义短链（可选）
+                    </label>
+                    <input 
+                        type="text" 
+                        id="custom" 
+                        name="custom" 
+                        placeholder="留空则自动生成，如：abc123（仅字母/数字）"
+                        autocomplete="off"
+                    >
+                    <small class="tip">仅支持字母、数字，无特殊符号，长度建议6-12位</small>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-magic"></i> 生成短链接
+                </button>
+            </form>
+        </main>
+
+        <!-- 底部说明+提示 -->
+        <footer class="panel-footer">
+            <p class="hint"><i class="fas fa-lightbulb"></i> 生成后直接复制短链接即可使用，支持永久有效</p>
+            <p class="copyright">© 2026 卡卡短链 | 基于Cloudflare Worker开发</p>
+        </footer>
+    </div>
 </body>
 </html>
