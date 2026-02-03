@@ -1,58 +1,44 @@
-/* --- 复古黑客风格 --- */
+/* --- 赛博朋克风格 --- */
 :root {
-  --neon-green: #00ff41;
-  --dark-bg: #000000;
-  --glass-border: #003b00;
+  --neon-pink: #ff00ff;
+  --neon-cyan: #00ffff;
+  --cyber-yellow: #fcee0a;
+  --bg-dark: #1a1a1a;
 }
 
 body {
-  background-color: var(--dark-bg);
-  background-image: linear-gradient(rgba(0, 255, 65, 0.1) 50%, transparent 50%);
-  background-size: 100% 4px; /* 模拟扫描线 */
-  color: var(--neon-green);
-  font-family: 'JetBrains Mono', monospace;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #050505;
+  color: white;
+  font-family: 'Inter', sans-serif;
 }
 
 .glass-card {
-  background: rgba(0, 20, 0, 0.9);
-  border: 2px solid var(--neon-green);
-  box-shadow: 0 0 20px var(--neon-green);
-  border-radius: 0; /* 黑客风格通常是直角 */
+  background: #1a1a1a;
+  border: 3px solid var(--neon-cyan);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 95% 100%, 0% 100%); /* 切角效果 */
+  box-shadow: 5px 5px 0px var(--neon-pink);
 }
 
 .card-header {
-  border-bottom: 2px solid var(--neon-green) !important;
-  color: var(--neon-green) !important;
-  text-shadow: 0 0 10px var(--neon-green);
-}
-
-.form-control {
-  background: transparent !important;
-  border: 1px solid var(--neon-green) !important;
-  color: var(--neon-green) !important;
-  border-radius: 0;
+  color: var(--cyber-yellow) !important;
+  font-style: italic;
 }
 
 .btn-tech {
-  background: var(--neon-green) !important;
-  color: black !important;
-  border-radius: 0;
-  font-weight: bold;
-  box-shadow: 0 0 10px var(--neon-green);
+  background: var(--neon-pink) !important;
+  color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: none;
 }
 
 .btn-tech:hover {
-  background: black !important;
-  color: var(--neon-green) !important;
-  border: 1px solid var(--neon-green);
+  background: var(--neon-cyan) !important;
+  color: black !important;
+  box-shadow: -5px -5px 0px var(--neon-pink);
 }
 
 .list-group-item {
-  background: transparent !important;
-  border: 1px solid var(--glass-border) !important;
-  color: var(--neon-green) !important;
+  border-left: 5px solid var(--neon-cyan) !important;
+  background: rgba(255,255,255,0.05) !important;
 }
