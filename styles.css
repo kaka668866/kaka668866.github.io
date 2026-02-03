@@ -1,112 +1,76 @@
-/* --- Google Material Design 风格样式表 --- */
-
+/* Google 风格明亮版 */
 :root {
   --google-blue: #1a73e8;
-  --google-red: #ea4335;
-  --google-yellow: #fbbc04;
-  --google-green: #34a853;
-  --bg-light: #f8f9fa;
-  --text-main: #202124;
-  --text-secondary: #5f6368;
   --border-color: #dadce0;
 }
 
 body {
-  background-color: var(--bg-light);
-  color: var(--text-main);
-  font-family: 'Product Sans', 'Roboto', Arial, sans-serif;
-  min-height: 100vh;
+  background-color: #ffffff; /* 纯白背景更显大气 */
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* 页面容器：垂直排列 */
 .container-fluid {
-  max-width: 1000px;
-  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
-/* Google 标志性的白色圆角卡片 */
+/* 标题样式 */
+.google-logo {
+  font-size: 2.5rem;
+  letter-spacing: -1.5px;
+}
+
+/* 限制卡片区域宽度并居中 */
+.main-content-wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding-bottom: 50px;
+}
+
 .glass-card {
   background: #ffffff;
   border: 1px solid var(--border-color);
-  border-radius: 24px;
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-  margin-bottom: 30px;
-  transition: box-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
-}
-
-.glass-card:hover {
-  box-shadow: 0 4px 12px 0 rgba(60,64,67,0.3);
+  border-radius: 8px; /* Google 现在的风格是微圆角 */
+  overflow: hidden;
 }
 
 .card-header {
-  background: transparent !important;
-  border-bottom: 1px solid var(--border-color) !important;
-  color: var(--google-blue) !important;
-  font-size: 1.25rem !important;
-  font-weight: 500 !important;
-  padding: 20px 24px !important;
+  padding: 15px 20px;
+  font-weight: 500;
+  color: #3c4043;
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* 输入框：Google 搜索框风格 */
 .form-control {
-  background: #ffffff !important;
-  border: 1px solid var(--border-color) !important;
-  border-radius: 8px !important;
-  color: var(--text-main) !important;
-  padding: 12px 16px !important;
-  font-size: 16px !important;
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
 }
 
 .form-control:focus {
-  border-color: var(--google-blue) !important;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+  border-color: var(--google-blue);
+  box-shadow: inset 0 0 0 1px var(--google-blue);
 }
 
-/* 按钮：Google Blue 风格 */
 .btn-tech {
-  background: var(--google-blue) !important;
-  color: #ffffff !important;
+  background-color: var(--google-blue);
+  color: white;
   border: none;
-  border-radius: 100px !important; /* 胶囊形状 */
-  padding: 10px 24px !important;
-  font-weight: 500 !important;
-  letter-spacing: .25px;
-  transition: background 0.2s, box-shadow 0.2s;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 500;
 }
 
 .btn-tech:hover {
-  background: #1765cc !important;
-  box-shadow: 0 1px 3px 1px rgba(66,133,244,0.15), 0 1px 2px 0 rgba(66,133,244,0.3);
+  background-color: #1557b0;
+  box-shadow: 0 1px 3px rgba(60,64,67,0.3);
 }
 
-/* 列表项：干净整洁 */
 .list-group-item {
-  background: white !important;
-  border: none !important;
-  border-bottom: 1px solid var(--border-color) !important;
-  padding: 16px 24px !important;
-  color: var(--text-main) !important;
-}
-
-.list-group-item:last-child {
-  border-bottom: none !important;
-}
-
-.code-font {
-  font-family: 'Roboto Mono', monospace;
-  color: var(--google-green);
-}
-
-.text-muted {
-  color: var(--text-secondary) !important;
-}
-
-/* 二维码美化 */
-#qrcode {
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-left: none;
+  border-right: none;
+  padding: 15px 20px;
 }
