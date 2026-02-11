@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Awesome 图标示例</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-800 mb-4">Font Awesome 图标示例</h1>
+            <p class="text-lg text-gray-600">展示不同类型的 Font Awesome 图标</p>
+        </header>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-solid fa-icons mr-3 text-indigo-600"></i>
+                常用图标示例
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md text-center transition-transform hover:scale-105">
+                    <i class="fas fa-home text-4xl text-green-500 mb-3"></i>
+                    <p class="text-gray-700">首页</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center transition-transform hover:scale-105">
+                    <i class="fas fa-user text-4xl text-blue-500 mb-3"></i>
+                    <p class="text-gray-700">用户</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center transition-transform hover:scale-105">
+                    <i class="fas fa-cog text-4xl text-yellow-500 mb-3"></i>
+                    <p class="text-gray-700">设置</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center transition-transform hover:scale-105">
+                    <i class="fas fa-envelope text-4xl text-red-500 mb-3"></i>
+                    <p class="text-gray-700">邮件</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                <i class="fab fa-font-awesome mr-3 text-indigo-600"></i>
+                品牌图标示例
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <i class="fab fa-github text-3xl text-gray-800 mb-2"></i>
+                    <p class="text-sm">GitHub</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <i class="fab fa-twitter text-3xl text-blue-400 mb-2"></i>
+                    <p class="text-sm">Twitter</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <i class="fab fa-facebook text-3xl text-blue-600 mb-2"></i>
+                    <p class="text-sm">Facebook</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <i class="fab fa-linkedin text-3xl text-blue-700 mb-2"></i>
+                    <p class="text-sm">LinkedIn</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <i class="fab fa-instagram text-3xl text-pink-500 mb-2"></i>
+                    <p class="text-sm">Instagram</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-solid fa-spinner mr-3 text-indigo-600"></i>
+                动画图标示例
+            </h2>
+            <div class="flex flex-wrap gap-6 justify-center">
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <i class="fas fa-spinner fa-spin text-4xl text-blue-500 mb-3"></i>
+                    <p class="text-gray-700">旋转动画</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <i class="fas fa-sync fa-spin text-4xl text-green-500 mb-3"></i>
+                    <p class="text-gray-700">同步动画</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <i class="fas fa-heart fa-beat text-4xl text-red-500 mb-3"></i>
+                    <p class="text-gray-700">心跳动画</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-solid fa-palette mr-3 text-indigo-600"></i>
+                自定义样式示例
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-8 rounded-xl text-white text-center">
+                    <i class="fas fa-star text-5xl mb-4"></i>
+                    <p class="text-xl">大尺寸图标</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                    <i class="fas fa-quote-left text-6xl text-indigo-300 mb-4"></i>
+                    <p class="text-gray-600 italic">带阴影效果</p>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-8 rounded-xl text-white text-center">
+                    <i class="fas fa-sun fa-spin text-5xl mb-4"></i>
+                    <p class="text-xl">彩色旋转</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-16 text-center text-gray-600">
+            <p>© 2026 Font Awesome 图表示例 | 使用 CDN 引入 Font Awesome 6.5.0</p>
+        </footer>
+    </div>
+</body>
+</html>
